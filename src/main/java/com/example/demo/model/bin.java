@@ -1,7 +1,7 @@
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-im
+import jakarta.persistence.column;
 @Entity
 public class bin
 {
@@ -12,6 +12,13 @@ public class bin
     private String identifier;
     private String locationDescription;
     private Double latitude;
-    private 
+    private Double longitude;
+    private Double capacityLiters;
+    private Boolean active;
+
 
 }
+
+
+
+
