@@ -58,9 +58,9 @@ public Double setLongitude(Double longitude)
 {
   this.longitude=longitude;
 }
-public Long getId()
+public Long getcapacityLiters()
 {
-    return id;
+    return capacityLiters;
 }
 public Long setId(Long id)
 {
