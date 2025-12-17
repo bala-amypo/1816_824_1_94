@@ -26,21 +26,21 @@ public Long setId(Long id)
 {
   this.id=id;
 }
-public String getId()
+public String getIdentifier()
 {
-    return id;
+    return identifier;
 }
-public Long setId(Long id)
+public String setIdentifier(String identifier)
 {
-  this.id=id;
+  this.identifier=identifier;
 }
-public Long getId()
+public String getLocationDescription()
 {
-    return id;
+    return LocationDescription;
 }
-public Long setId(Long id)
+public String setLocationDescription(String LocationDescription)
 {
-  this.id=id;
+  this.LocationDescription=LocationDescription;
 }
 public Long getId()
 {
