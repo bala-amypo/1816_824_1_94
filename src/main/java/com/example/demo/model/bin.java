@@ -78,7 +78,7 @@ public bin(Long id,String identifier,String locationDescription,Double latitude,
 {
   this.id=id;
   this.identifier=identifier;
-  this.LocationDescription=LocationDescription;
+  this.locationDescription=locationDescription;
   this.latitude=latitude;
   this.longitude=longitude;
   this.capacityLiters=capacityLiters;
