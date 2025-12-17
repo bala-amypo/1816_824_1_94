@@ -17,7 +17,7 @@ public class bin
     private Double longitude;
     private Double capacityLiters;
     private Boolean active;
-}
+
 public Long getId()
 {
     return id;
@@ -72,5 +72,7 @@ public Boolean getactive()
 }
 public Boolean setactive(Boolean active)
 {
-  this.Boolean=Boolean;
+  this.active=active;
+}
+public bin(Long id,)
 }
