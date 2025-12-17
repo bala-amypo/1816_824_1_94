@@ -42,21 +42,21 @@ public String setLocationDescription(String LocationDescription)
 {
   this.LocationDescription=LocationDescription;
 }
-public Long getId()
+public Double getLatitute()
 {
-    return id;
+    return latitude;
 }
-public Long setId(Long id)
+public Double setLatitude(Double latitude)
 {
-  this.id=id;
+  this.latitude=latitude;
 }
-public Long getId()
+public Double getLongitude()
 {
-    return id;
+    return longitude;
 }
-public Long setId(Long id)
+public Double setLongitude(Double longitude)
 {
-  this.id=id;
+  this.longitude=longitude;
 }
 public Long getId()
 {
