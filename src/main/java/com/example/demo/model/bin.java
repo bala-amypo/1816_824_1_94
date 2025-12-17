@@ -2,5 +2,5 @@
 public class bin
 {
     @Id
-    @Generated
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 }
