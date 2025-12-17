@@ -74,5 +74,5 @@ public Boolean setactive(Boolean active)
 {
   this.active=active;
 }
-public bin(Long id,String identifier,String locationDescription,Double )
+public bin(Long id,String identifier,String locationDescription,Double latitude,Double longitude,Double capacityLiters,Boolean )
 }
