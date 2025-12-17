@@ -1,5 +1,5 @@
 @Entity
 public class bin
 {
-
+    
 }
