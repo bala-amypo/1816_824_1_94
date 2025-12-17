@@ -12,5 +12,6 @@ public class bin
     private String identifier;
     private String locationDescription;
     private Double latitude;
-    
+    private 
+
 }
