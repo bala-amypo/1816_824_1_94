@@ -42,7 +42,7 @@ public void setLocationDescription(String locationDescription)
 {
   this.locationDescription=locationDescription;
 }
-public Double getLatitute()
+public Double getLatitude()
 {
     return latitude;
 }
