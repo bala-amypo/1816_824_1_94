@@ -10,5 +10,7 @@ public class bin
     private Long id;
     @column(unique=true)
     private String identifier;
-    private String 
+    private String locationDescription;
+    private Double latitude;
+    
 }
