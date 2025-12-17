@@ -62,7 +62,7 @@ public Double getcapacityLiters()
 {
     return capacityLiters;
 }
-public void setcapacityliters(Double capacityLiters)
+public void setcapacityLiters(Double capacityLiters)
 {
   this.capacityLiters=capacityLiters;
 }
