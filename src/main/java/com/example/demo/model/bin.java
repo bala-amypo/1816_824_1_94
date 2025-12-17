@@ -22,7 +22,7 @@ public Long getId()
 {
     return id;
 }
-public Long setId(Long id)
+public void setId(Long id)
 {
   this.id=id;
 }
@@ -30,23 +30,23 @@ public String getIdentifier()
 {
     return identifier;
 }
-public String setIdentifier(String identifier)
+public void setIdentifier(String identifier)
 {
   this.identifier=identifier;
 }
 public String getLocationDescription()
 {
-    return LocationDescription;
+    return locationDescription;
 }
-public String setLocationDescription(String LocationDescription)
+public void setLocationDescription(String locationDescription)
 {
-  this.LocationDescription=LocationDescription;
+  this.locationDescription=locationDescription;
 }
 public Double getLatitute()
 {
     return latitude;
 }
-public Double setLatitude(Double latitude)
+public void setLatitude(Double latitude)
 {
   this.latitude=latitude;
 }
@@ -54,7 +54,7 @@ public Double getLongitude()
 {
     return longitude;
 }
-public Double setLongitude(Double longitude)
+public void setLongitude(Double longitude)
 {
   this.longitude=longitude;
 }
@@ -62,7 +62,7 @@ public Double getcapacityLiters()
 {
     return capacityLiters;
 }
-public Double setcapacityliters(Double capacityLiters)
+public void setcapacityliters(Double capacityLiters)
 {
   this.capacityLiters=capacityLiters;
 }
@@ -70,7 +70,7 @@ public Boolean getactive()
 {
     return active;
 }
-public Boolean setactive(Boolean active)
+public void setactive(Boolean active)
 {
   this.active=active;
 }
