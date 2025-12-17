@@ -74,5 +74,15 @@ public Boolean setactive(Boolean active)
 {
   this.active=active;
 }
-public bin(Long id,String identifier,String locationDescription,Double latitude,Double longitude,Double capacityLiters,Boolean )
+public bin(Long id,String identifier,String locationDescription,Double latitude,Double longitude,Double capacityLiters,Boolean active)
+{
+  this.id=id;
+  this.identifier=identifier;
+  this.LocationDescription=LocationDescription;
+  this.latitude=latitude;
+  this.longitude=longitude;
+  this.capacityLiters=capacityLiters;
+  this.active=active;
+}
+public bin(){}
 }
