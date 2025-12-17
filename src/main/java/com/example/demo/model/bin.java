@@ -58,11 +58,19 @@ public Double setLongitude(Double longitude)
 {
   this.longitude=longitude;
 }
-public Long getcapacityLiters()
+public Double getcapacityLiters()
 {
     return capacityLiters;
 }
-public Long setId(Long id)
+public Double setcapacityliters(Double capacityLiters)
 {
-  this.id=id;
+  this.capacityLiters=capacityLiters;
+}
+public Boolean getactive()
+{
+    return active;
+}
+public Boolean setactive(Boolean active)
+{
+  this.Boolean=Boolean;
 }
