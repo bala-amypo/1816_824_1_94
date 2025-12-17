@@ -22,7 +22,7 @@ public Long getId()
 {
     return id;
 }
-public Long setId()
+public Long setId(Long id)
 {
-    
+  this.id=id;
 }
