@@ -8,5 +8,6 @@ import com.example.demo.repository.FillLevelRecordRepository;
 public interface FillLevelRecordService 
 {
     public FillLevelRecord createRecord(FillLevelRecord record);
-    public FillLevelRecord getRecordsForBin()
+    public FillLevelRecord getRecordsForBin(Long binId);
+    
 }
