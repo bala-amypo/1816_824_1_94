@@ -1,3 +1,5 @@
+package com.example.demo.service.impl;
+
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Bin;
 import com.example.demo.repository.BinRepository;
@@ -16,6 +18,6 @@ public class BinServiceImpl implements BinService
    }
    public List<Bin> getAllBins()
    {
-      return 
+      return obj.findAll();
    }
 }
