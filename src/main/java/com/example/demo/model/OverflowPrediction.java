@@ -9,6 +9,16 @@ public class OverflowPrediction
 {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private LO id;
-    Double 
+    private Long id;
+    private Double avgDailyIncreaseWeekday;
+    private Double avgDailyIncreaseWeekend;
+    public Long getid()
+    {
+        return id;
+    } 
+    public void setid(Long id)
+    {
+         this.id=id;
+    }
+    public Double 
 }
