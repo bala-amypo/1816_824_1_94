@@ -8,7 +8,7 @@ import com.example.demo.repository.FillLevelRecordRepository;
 import java.util.List;
 
 @Service
-public class FillLevelRecordSeviceImpl implements FillLevelRecordService
+public class FillLevelRecordServiceImpl implements FillLevelRecordService
 {
     @Autowired
     FillLevelRecordRepository obj;
