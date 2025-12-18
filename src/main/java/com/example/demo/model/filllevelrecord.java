@@ -20,16 +20,17 @@ public class filllevelrecord
     {
         return id;
     }
-    public void setfillPercentage()
+    public void setfillPercentage(Double fillPercentage)
     {
-        this.id=id;
+        this.fillPercentage=fillPercentage;
     }
-    public Long getid()
+    public Boolean getisWeekend()
     {
-        return id;
+        return isWeekend;
     }
-    public void setid(LOng id)
+    public void setisWeekend(Boolean isWeekend)
     {
-        this.id=id;
+        this.isWeekend=isWeekend;
     }
+    
 }
