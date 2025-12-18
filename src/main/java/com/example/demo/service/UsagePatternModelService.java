@@ -6,5 +6,5 @@ import com.example.demo.model.UsagePatternModel;
 public interface UsagePatternModelService 
 {
     UsagePatternModel createModel(UsagePatternModel model);
-    
+    List<UsagePatternModel> getAllModels();
 }
