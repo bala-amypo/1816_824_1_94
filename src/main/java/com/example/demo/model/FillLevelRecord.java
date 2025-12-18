@@ -32,5 +32,11 @@ public class FillLevelRecord
     {
         this.isWeekend=isWeekend;
     }
-    public FillLevelRecord(Long id,Double fillPercentage,)
+    public FillLevelRecord(Long id,Double fillPercentage,Boolean isWeekend)
+    {
+        this.id=id;
+        this.fillPercentage=fillPercentage;
+        this.isWeekend=isWeekend;
+    }
+    public FillLevelRecord(){}
 }
