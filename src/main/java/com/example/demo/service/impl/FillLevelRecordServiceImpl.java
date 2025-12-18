@@ -5,7 +5,7 @@ import com.example.demo.service.FillLevelRecordService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.repository.FillLevelRecordRepository;
-
+import java.util.List;
 public class FillLevelRecordSeviceImpl implements FillLevelRecordService
 {
     @Autowired
@@ -15,9 +15,10 @@ public class FillLevelRecordSeviceImpl implements FillLevelRecordService
     {
        return obj.save(record);
     }
-    public  List<FillLevelRecord> getRecordsForBin(Long binId)
+    public List<FillLevelRecord> getRecordsForBin(Long binId)
     {
-        
+         
     }
+    public 
     
 }
