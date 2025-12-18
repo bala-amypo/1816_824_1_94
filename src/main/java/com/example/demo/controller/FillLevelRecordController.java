@@ -3,9 +3,17 @@ package com.example.demo.controller;
 import com.example.demo.service.FillLevelRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.FillLevelRecord;
 
 @RestController
 public class FillLevelRecordController
 {
-   @
+   @Autowired
+   FillLevelRecordService ob;
+
+   @PostMapping("/fill")
+   public FillLevelRecord add(FillLevelRecord Fill)
+   {
+        ob.
+   }
 }
