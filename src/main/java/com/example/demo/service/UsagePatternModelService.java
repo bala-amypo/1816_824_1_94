@@ -1,7 +1,10 @@
 package com.example.demo.service;
+
 import org.springframework.stereotype.Service;
-import 
+import com.example.demo.model.UsagePatternModel;
+
 public interface UsagePatternModelService 
 {
-     createModel
+    UsagePatternModel createModel(UsagePatternModel model);
+    
 }
