@@ -11,5 +11,8 @@ public class BinController
     BinService ob;
     
     @PostMapping("/bin")
-    public 
+    public Bin Add(@RequestBody Bin bin)
+    {
+        ob.createBin()
+    }
 }
