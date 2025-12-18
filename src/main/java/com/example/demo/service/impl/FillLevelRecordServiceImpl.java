@@ -15,10 +15,6 @@ public class FillLevelRecordSeviceImpl implements FillLevelRecordService
     {
        return obj.save(record);
     }
-    public List<FillLevelRecord> getRecordsForBin(Long binId)
-    {
-         
-    }
-    public 
+    public getRecord 
     
 }
