@@ -2,7 +2,9 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Bin;
 import com.example.demo.repository.BinRepository;
 import com.example.demo.service.BinService;
-import 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Service
 public class BinServiceImpl implements BinService
 {
