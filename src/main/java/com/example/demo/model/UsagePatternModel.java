@@ -24,5 +24,8 @@ public class UsagePatternModel
     {
         return avgDailyIncreaseWeekday;
     }
-    public void setavgDailyIncreaseWeekday(Double )
+    public void setavgDailyIncreaseWeekday(Double avgDailyIncreaseWeekday)
+    {
+        this.avgDailyIncreaseWeekday=avgDailyIncreaseWeekday;
+    }
 }
