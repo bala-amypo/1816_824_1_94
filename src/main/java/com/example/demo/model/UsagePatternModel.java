@@ -28,4 +28,16 @@ public class UsagePatternModel
     {
         this.avgDailyIncreaseWeekday=avgDailyIncreaseWeekday;
     }
+     public Double getavgDailyIncreaseWeekend()
+    {
+        return avgDailyIncreaseWeekend;
+    }
+    public void setavgDailyIncreaseWeekend(Double avgDailyIncreaseWeekend)
+    {
+        this.avgDailyIncreaseWeekend=avgDailyIncreaseWeekend;
+    }
+    public UsagePatternModel(Long id,Double avgDailyIncreaseWeekday,Double avgDailyIncreaseWeekend)
+    {
+        
+    }
 }
