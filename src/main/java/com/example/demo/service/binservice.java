@@ -1,3 +1,7 @@
 package com.example.demo.service;
 
-public interface bi
+@Service
+public interface binservice 
+{
+
+}
