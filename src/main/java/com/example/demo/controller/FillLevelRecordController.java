@@ -19,4 +19,7 @@ public class FillLevelRecordController
 
    @GetMapping("/{id}")
    public FillLevelRecord getrec(@PathVariable Long id)
+   {
+       
+   }
 }
