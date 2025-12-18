@@ -17,8 +17,8 @@ public class BinController
     }
 
     @GetMapping
-    public List get()
+    public List<Bin> get()
     {
-        return ob.getAll
+        return ob.getAllBins();
     }
 }
