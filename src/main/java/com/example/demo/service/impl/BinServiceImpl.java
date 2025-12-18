@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BinServiceImpl implements BinService
 {
    @Autowired
-   Bin 
+   BinRepository obj;
    public Bin createBin(Bin bin)
    {
-      
+     return obj.save(bin);
+   }
+   public List<Bin> getAllBins()
+   {
+      return 
    }
 }
