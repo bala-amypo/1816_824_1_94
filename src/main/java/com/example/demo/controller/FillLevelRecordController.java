@@ -12,8 +12,11 @@ public class FillLevelRecordController
    FillLevelRecordService ob;
 
    @PostMapping("/fill")
-   public FillLevelRecord add(FillLevelRecord Fill)
+   public FillLevelRecord add(@RequestBodyt FillLevelRecord Fill)
    {
-        ob.
+        ob.createRecord(Fill);
    }
+
+   @GetMapping("/{id}")
+   public FillLevelRecord getrec(@PathVariable Long id)
 }
