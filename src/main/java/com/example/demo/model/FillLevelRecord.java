@@ -23,7 +23,7 @@ public class FillLevelRecord
     }
     public Double getfillPercentage()
     {
-        return id;
+        return fillPercentage;
     }
     public void setfillPercentage(Double fillPercentage)
     {
