@@ -1,5 +1,5 @@
 package com.example.demo.service;
-import org.springframework.stereotype.Servie;
+import org.springframework.stereotype.Service;
 import com.example.demo.model.Bin;
 import java.util.List;
 @Service

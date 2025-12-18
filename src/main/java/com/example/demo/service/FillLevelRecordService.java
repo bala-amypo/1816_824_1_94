@@ -7,5 +7,5 @@ import com.example.demo.repository.FillLevelRecordRepository;
 @Service
 public interface FillLevelRecordService 
 {
-    public FillLevelRecord createRecord(FillLevelRecord )
+    public FillLevelRecord createRecord(FillLevelRecord record);
 }
