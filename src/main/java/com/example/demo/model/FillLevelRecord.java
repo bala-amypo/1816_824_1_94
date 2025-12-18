@@ -1,7 +1,7 @@
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 @Entity
-public class filllevelrecord
+public class FillLevelRecord
 {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,5 +32,5 @@ public class filllevelrecord
     {
         this.isWeekend=isWeekend;
     }
-    
+    public FillLevelRecord(Long id,Double fillPercentage,)
 }

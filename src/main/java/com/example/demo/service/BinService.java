@@ -6,6 +6,5 @@ import java.util.List;
 public interface BinService 
 {
     Bin createBin(Bin bin);
-    Bin updateBin(Long id,Bin bin);
     List<Bin> getAllBins();
 }
