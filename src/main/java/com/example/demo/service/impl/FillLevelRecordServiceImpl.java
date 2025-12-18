@@ -9,5 +9,15 @@ import com.example.demo.repository.FillLevelRecordRepository;
 public class FillLevelRecordSeviceImpl implements FillLevelRecordService
 {
     @Autowired
+    FillLevelRecordRepository obj;
+
+    public FillLevelRecord createRecord(FillLevelRecord record)
+    {
+       return obj.save(record);
+    }
+    public  List<FillLevelRecord> getRecordsForBin(Long binId)
+    {
+        
+    }
     
 }
