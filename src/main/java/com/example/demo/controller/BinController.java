@@ -13,6 +13,12 @@ public class BinController
     @PostMapping("/bin")
     public Bin Add(@RequestBody Bin bin)
     {
-        ob.createBin()
+       return ob.createBin(bin);
+    }
+
+    @GetMapping
+    public List get()
+    {
+        return ob.getAll
     }
 }
