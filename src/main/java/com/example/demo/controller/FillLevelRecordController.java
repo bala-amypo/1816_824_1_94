@@ -12,7 +12,7 @@ public class FillLevelRecordController
    FillLevelRecordService ob;
 
    @PostMapping("/fill")
-   public FillLevelRecord add(@RequestBodyt FillLevelRecord Fill)
+   public FillLevelRecord add(@RequestBody FillLevelRecord Fill)
    {
        return ob.createRecord(Fill);
    }
@@ -20,6 +20,6 @@ public class FillLevelRecordController
    @GetMapping("/{id}")
    public FillLevelRecord getrec(@PathVariable Long id)
    {
-       return ob.getRecordById
+       return ob.getRecordById(id);
    }
 }
