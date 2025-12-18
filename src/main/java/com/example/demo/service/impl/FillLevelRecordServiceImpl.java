@@ -15,7 +15,7 @@ public class FillLevelRecordSeviceImpl implements FillLevelRecordService
     {
        return obj.save(record);
     }
-    public getRecordById(Long id)
+    public FillLevelRecord getRecordById(Long id)
     {
         return obj.findById(id);
     }
