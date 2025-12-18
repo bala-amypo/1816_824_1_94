@@ -38,6 +38,9 @@ public class UsagePatternModel
     }
     public UsagePatternModel(Long id,Double avgDailyIncreaseWeekday,Double avgDailyIncreaseWeekend)
     {
-        
+        this.id=id;
+        this.avgDailyIncreaseWeekday=avgDailyIncreaseWeekday;
+        this.avgDailyIncreaseWeekend=avgDailyIncreaseWeekend;
     }
+    public UsagePatternModel(){}
 }
