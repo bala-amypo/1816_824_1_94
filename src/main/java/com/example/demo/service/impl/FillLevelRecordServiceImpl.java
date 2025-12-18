@@ -21,5 +21,4 @@ public class FillLevelRecordServiceImpl implements FillLevelRecordService
     {
         return obj.findById(id);
     }
-    
 }
