@@ -5,7 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-public class OverflowPrediction
+public class UsagePatternModel
 {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -20,5 +20,8 @@ public class OverflowPrediction
     {
          this.id=id;
     }
-    public Double 
+    public Double getavgDailyIncreaseWeekday()
+    {
+        return avgDailyIncreaseWeek
+    }
 }
