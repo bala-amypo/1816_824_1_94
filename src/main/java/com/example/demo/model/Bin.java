@@ -5,7 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 @Entity
-public class bin
+public class Bin
 {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -74,7 +74,7 @@ public void setactive(Boolean active)
 {
   this.active=active;
 }
-public bin(Long id,String identifier,String locationDescription,Double latitude,Double longitude,Double capacityLiters,Boolean active)
+public Bin(Long id,String identifier,String locationDescription,Double latitude,Double longitude,Double capacityLiters,Boolean active)
 {
   this.id=id;
   this.identifier=identifier;
@@ -84,5 +84,5 @@ public bin(Long id,String identifier,String locationDescription,Double latitude,
   this.capacityLiters=capacityLiters;
   this.active=active;
 }
-public bin(){}
+public Bin(){}
 }
