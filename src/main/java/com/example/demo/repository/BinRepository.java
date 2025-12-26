@@ -1,8 +1,4 @@
-/*
- * File: BinRepository.java
- * Package: com.example.demo.repository
- * Purpose: Data access for Bin entity
- */
+
 package com.example.demo.repository;
 
 import com.example.demo.model.*;
