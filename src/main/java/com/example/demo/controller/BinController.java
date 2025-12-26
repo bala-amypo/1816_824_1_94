@@ -1,25 +1,48 @@
+/*
+ * File: BinController.java
+ * Package: com.example.demo.controller
+ * Purpose: REST endpoints for Bin management
+ */
 package com.example.demo.controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import com.example.demo.model.Bin;
 import com.example.demo.service.BinService;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-public class BinController
-{
-    @Autowired 
-    BinService ob;
-    
-    @PostMapping("/bin")
-    public Bin Add(@RequestBody Bin bin)
-    {
-       return ob.createBin(bin);
+@RequestMapping("/api/bins")
+public class BinController {
+
+    private final BinService binService;
+
+    public BinController(BinService binService) {
+        this.binService = binService;
+    }
+
+    @PostMapping
+    public Bin createBin(@RequestBody Bin bin) {
+        return binService.createBin(bin);
+    }
+
+    @PutMapping("/{id}")
+    public Bin updateBin(@PathVariable Long id, @RequestBody Bin bin) {
+        return binService.updateBin(id, bin);
+    }
+
+    @GetMapping("/{id}")
+    public Bin getBin(@PathVariable Long id) {
+        return binService.getBinById(id);
     }
 
     @GetMapping
-    public List<Bin> get()
-    {
-        return ob.getAllBins();
+    public List<Bin> getAllBins() {
+        return binService.getAllBins();
+    }
+
+    @PutMapping("/{id}/deactivate")
+    public void deactivateBin(@PathVariable Long id) {
+        binService.deactivateBin(id);
     }
 }
