@@ -1,12 +1,6 @@
-/*
- * File: AuthController.java
- * Package: com.example.demo.controller
- * Purpose: Authentication and registration endpoints
- */
 package com.example.demo.controller;
 
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.*;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
@@ -26,7 +20,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody AuthRequest request) {
+    public AuthResponse register(@RequestBody RegisterRequest request) {
+
         User user = userService.registerUser(
                 request.getFullName(),
                 request.getEmail(),
@@ -43,7 +38,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
+    public AuthResponse login(@RequestBody LoginRequest request) {
+
         User user = userService.getByEmail(request.getEmail());
 
         String token = jwtTokenProvider.generateToken(
