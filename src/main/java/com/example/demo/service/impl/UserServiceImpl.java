@@ -1,8 +1,3 @@
-/*
- * File: UserServiceImpl.java
- * Package: com.example.demo.service.impl
- * Purpose: Implementation of UserService
- */
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.BadRequestException;
@@ -10,23 +5,31 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+/*
+ * File: UserServiceImpl.java
+ * Package: com.example.demo.service.impl
+ */
+@Service   // ⭐ THIS IS MANDATORY
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    // Constructor injection only
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User registerUser(String fullName, String email, String password) {
+
         if (userRepository.findByEmail(email).isPresent()) {
-            throw new BadRequestException("email");
+            throw new BadRequestException("Email already exists");
         }
 
         User user = new User(
@@ -42,7 +45,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
     }
 
     @Override
