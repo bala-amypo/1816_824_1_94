@@ -1,8 +1,3 @@
-/*
- * File: LoginRequest.java
- * Package: com.example.demo.dto
- * Purpose: Request body for user login
- */
 package com.example.demo.dto;
 
 public class LoginRequest {
@@ -10,7 +5,8 @@ public class LoginRequest {
     private String email;
     private String password;
 
-    public LoginRequest() {}
+    public LoginRequest() {
+    }
 
     public LoginRequest(String email, String password) {
         this.email = email;
@@ -27,3 +23,9 @@ public class LoginRequest {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
