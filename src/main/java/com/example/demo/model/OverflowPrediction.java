@@ -15,7 +15,6 @@ public class OverflowPrediction {
     @ManyToOne
     private Bin bin;
 
-    // REQUIRED by tests
     private LocalDate predictedFullDate;
 
     private Integer daysUntilFull;
@@ -23,13 +22,9 @@ public class OverflowPrediction {
     @ManyToOne
     private UsagePatternModel modelUsed;
 
-    // 🔴 THIS FIELD WAS MISSING (CAUSE OF ERROR)
     private LocalDateTime generatedAt;
 
-    public OverflowPrediction() {
-    }
-
-    // ---------------- getters & setters ----------------
+    public OverflowPrediction() {}
 
     public Long getId() {
         return id;

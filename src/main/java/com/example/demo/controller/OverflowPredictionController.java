@@ -1,8 +1,3 @@
-/*
- * File: OverflowPredictionController.java
- * Package: com.example.demo.controller
- * Purpose: REST endpoints for OverflowPrediction
- */
 package com.example.demo.controller;
 
 import com.example.demo.model.OverflowPrediction;
@@ -17,28 +12,28 @@ public class OverflowPredictionController {
 
     private final OverflowPredictionService predictionService;
 
+    // 🔴 MUST inject INTERFACE, NOT IMPL
     public OverflowPredictionController(OverflowPredictionService predictionService) {
         this.predictionService = predictionService;
     }
 
     @PostMapping("/generate/{binId}")
-    public OverflowPrediction generatePrediction(@PathVariable Long binId) {
+    public OverflowPrediction generate(@PathVariable Long binId) {
         return predictionService.generatePrediction(binId);
     }
 
     @GetMapping("/{id}")
-    public OverflowPrediction getPrediction(@PathVariable Long id) {
+    public OverflowPrediction getById(@PathVariable Long id) {
         return predictionService.getPredictionById(id);
     }
 
     @GetMapping("/bin/{binId}")
-    public List<OverflowPrediction> getPredictionsForBin(@PathVariable Long binId) {
+    public List<OverflowPrediction> getByBin(@PathVariable Long binId) {
         return predictionService.getPredictionsForBin(binId);
     }
 
     @GetMapping("/zone/{zoneId}/latest")
-    public List<OverflowPrediction> getLatestPredictionsForZone(
-            @PathVariable Long zoneId) {
+    public List<OverflowPrediction> getLatestForZone(@PathVariable Long zoneId) {
         return predictionService.getLatestPredictionsForZone(zoneId);
     }
 }
