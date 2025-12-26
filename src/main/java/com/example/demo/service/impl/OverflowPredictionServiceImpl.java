@@ -1,20 +1,16 @@
-/*
- * File: OverflowPredictionServiceImpl.java
- * Package: com.example.demo.service.impl
- * Purpose: Implementation of OverflowPredictionService
- */
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.*;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.OverflowPredictionService;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+@Service
 public class OverflowPredictionServiceImpl implements OverflowPredictionService {
 
     private final BinRepository binRepository;
@@ -39,28 +35,37 @@ public class OverflowPredictionServiceImpl implements OverflowPredictionService 
 
     @Override
     public OverflowPrediction generatePrediction(Long binId) {
+
         Bin bin = binRepository.findById(binId)
                 .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
 
-        FillLevelRecord record = recordRepository
+        FillLevelRecord latestRecord = recordRepository
                 .findTop1ByBinOrderByRecordedAtDesc(bin)
-                .orElseThrow(() -> new ResourceNotFoundException("Record not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No fill records"));
 
         UsagePatternModel model = modelRepository
                 .findTop1ByBinOrderByLastUpdatedDesc(bin)
-                .orElseThrow(() -> new ResourceNotFoundException("Model not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No usage model"));
 
-        double remaining = 100 - record.getFillPercentage();
-        double dailyIncrease = model.getAvgDailyIncreaseWeekday();
+        double remaining = 100 - latestRecord.getFillPercentage();
+        double dailyIncrease = latestRecord.getIsWeekend()
+                ? model.getAvgDailyIncreaseWeekend()
+                : model.getAvgDailyIncreaseWeekday();
 
-        int daysUntilFull = dailyIncrease == 0 ? 0 : (int) Math.ceil(remaining / dailyIncrease);
-        if (daysUntilFull < 0) daysUntilFull = 0;
+        if (dailyIncrease <= 0) {
+            throw new BadRequestException("Invalid usage pattern");
+        }
 
-        LocalDate predictedDate = LocalDate.now().plusDays(daysUntilFull);
+        int daysUntilFull = (int) Math.ceil(remaining / dailyIncrease);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, daysUntilFull);
 
         OverflowPrediction prediction = new OverflowPrediction(
                 bin,
-                java.sql.Date.valueOf(predictedDate),
+                cal.getTime(),
                 daysUntilFull,
                 model,
                 new Timestamp(System.currentTimeMillis())
@@ -72,7 +77,8 @@ public class OverflowPredictionServiceImpl implements OverflowPredictionService 
     @Override
     public OverflowPrediction getPredictionById(Long id) {
         return predictionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Prediction not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Prediction not found"));
     }
 
     @Override

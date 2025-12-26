@@ -1,39 +1,44 @@
-/*
- * File: UsagePatternModelServiceImpl.java
- * Package: com.example.demo.service.impl
- * Purpose: Implementation of UsagePatternModelService
- */
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.*;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Bin;
+import com.example.demo.model.UsagePatternModel;
+import com.example.demo.repository.BinRepository;
+import com.example.demo.repository.UsagePatternModelRepository;
 import com.example.demo.service.UsagePatternModelService;
+import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+@Service
 public class UsagePatternModelServiceImpl implements UsagePatternModelService {
 
     private final UsagePatternModelRepository modelRepository;
     private final BinRepository binRepository;
 
-    public UsagePatternModelServiceImpl(UsagePatternModelRepository modelRepository,
-                                        BinRepository binRepository) {
+    public UsagePatternModelServiceImpl(
+            UsagePatternModelRepository modelRepository,
+            BinRepository binRepository) {
         this.modelRepository = modelRepository;
         this.binRepository = binRepository;
     }
 
     @Override
     public UsagePatternModel createModel(UsagePatternModel model) {
+
         if (model.getAvgDailyIncreaseWeekday() < 0 ||
             model.getAvgDailyIncreaseWeekend() < 0) {
-            throw new BadRequestException("daily increase");
+            throw new BadRequestException("daily increase must be >= 0");
         }
 
         Bin bin = binRepository.findById(model.getBin().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
 
         model.setBin(bin);
+        model.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+
         return modelRepository.save(model);
     }
 
@@ -44,6 +49,7 @@ public class UsagePatternModelServiceImpl implements UsagePatternModelService {
 
         existing.setAvgDailyIncreaseWeekday(model.getAvgDailyIncreaseWeekday());
         existing.setAvgDailyIncreaseWeekend(model.getAvgDailyIncreaseWeekend());
+        existing.setLastUpdated(new Timestamp(System.currentTimeMillis()));
 
         return modelRepository.save(existing);
     }
@@ -53,8 +59,10 @@ public class UsagePatternModelServiceImpl implements UsagePatternModelService {
         Bin bin = binRepository.findById(binId)
                 .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
 
-        return modelRepository.findTop1ByBinOrderByLastUpdatedDesc(bin)
-                .orElseThrow(() -> new ResourceNotFoundException("Model not found"));
+        return modelRepository
+                .findTop1ByBinOrderByLastUpdatedDesc(bin)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Usage model not found"));
     }
 
     @Override
