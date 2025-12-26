@@ -1,82 +1,36 @@
 package com.example.demo.security;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-@Component
 public class JwtTokenProvider {
 
-    private String secret = "test-secret-key";   // default for tests
-    private final long EXPIRATION_TIME = 24 * 60 * 60 * 1000; // 24 hours
-
-    /* =========================================================
-       REQUIRED BY TESTNG
-       ========================================================= */
-    public JwtTokenProvider() {
-    }
+    private final String secret;
+    private final long validityInMs = 3600000; // 1 hour
 
     public JwtTokenProvider(String secret) {
         this.secret = secret;
     }
 
-    /* =========================================================
-       PRIMARY TOKEN GENERATOR (EXPECTED BY TESTS)
-       ========================================================= */
-    public String generateToken(Long userId, String email, String role) {
+    // ================= REQUIRED BY TEST =================
+    public String generateToken(
+            UsernamePasswordAuthenticationToken auth,
+            Long userId,
+            String role,
+            String email) {
 
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId);
-        claims.put("email", email);
-        claims.put("role", role);
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMs);
 
         return Jwts.builder()
-                .setClaims(claims)
                 .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .claim("userId", userId)
+                .claim("role", role)
+                .setIssuedAt(now)
+                .setExpiration(expiry)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
-    }
-
-    /* =========================================================
-       OVERLOADED METHOD REQUIRED BY TESTNG
-       ========================================================= */
-    public String generateToken(
-            UsernamePasswordAuthenticationToken authentication,
-            Long userId,
-            String email,
-            String role) {
-
-        return generateToken(userId, email, role);
-    }
-
-    /* =========================================================
-       OPTIONAL HELPERS (SAFE)
-       ========================================================= */
-    public Claims getClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-    }
-
-    public String getEmailFromToken(String token) {
-        return getClaims(token).getSubject();
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            getClaims(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
