@@ -1,10 +1,13 @@
+
 package com.example.demo.service;
-import org.springframework.stereotype.Service;
+
 import com.example.demo.model.Bin;
 import java.util.List;
-@Service
-public interface BinService 
-{
+
+public interface BinService {
     Bin createBin(Bin bin);
+    Bin updateBin(Long id, Bin bin);
+    Bin getBinById(Long id);
     List<Bin> getAllBins();
+    void deactivateBin(Long id);
 }
