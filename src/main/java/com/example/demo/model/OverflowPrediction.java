@@ -71,4 +71,7 @@ public class OverflowPrediction {
         return generatedAt;
     }
 
-    public void setGeneratedAt(LocalD
+    public void setGeneratedAt(LocalDateTime generatedAt) {
+        this.generatedAt = generatedAt;
+    }
+}
