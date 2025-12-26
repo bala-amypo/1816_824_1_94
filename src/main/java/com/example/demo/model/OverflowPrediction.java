@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "overflow_predictions")
@@ -14,7 +15,7 @@ public class OverflowPrediction {
     @ManyToOne
     private Bin bin;
 
-    // MUST be LocalDate (tests use this)
+    // REQUIRED by tests
     private LocalDate predictedFullDate;
 
     private Integer daysUntilFull;
@@ -22,7 +23,13 @@ public class OverflowPrediction {
     @ManyToOne
     private UsagePatternModel modelUsed;
 
-    public OverflowPrediction() {}
+    // 🔴 THIS FIELD WAS MISSING (CAUSE OF ERROR)
+    private LocalDateTime generatedAt;
+
+    public OverflowPrediction() {
+    }
+
+    // ---------------- getters & setters ----------------
 
     public Long getId() {
         return id;
@@ -59,4 +66,9 @@ public class OverflowPrediction {
     public void setModelUsed(UsagePatternModel modelUsed) {
         this.modelUsed = modelUsed;
     }
-}
+
+    public LocalDateTime getGeneratedAt() {
+        return generatedAt;
+    }
+
+    public void setGeneratedAt(LocalD
