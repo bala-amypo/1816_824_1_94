@@ -1,8 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "overflow_predictions")
@@ -15,26 +14,15 @@ public class OverflowPrediction {
     @ManyToOne
     private Bin bin;
 
-    private Date predictedFullDate;
+    // MUST be LocalDate (tests use this)
+    private LocalDate predictedFullDate;
+
     private Integer daysUntilFull;
 
     @ManyToOne
     private UsagePatternModel modelUsed;
 
-    private Timestamp generatedAt;
-
     public OverflowPrediction() {}
-
-    public OverflowPrediction(Bin bin, Date predictedFullDate,
-                              Integer daysUntilFull,
-                              UsagePatternModel modelUsed,
-                              Timestamp generatedAt) {
-        this.bin = bin;
-        this.predictedFullDate = predictedFullDate;
-        this.daysUntilFull = daysUntilFull;
-        this.modelUsed = modelUsed;
-        this.generatedAt = generatedAt;
-    }
 
     public Long getId() {
         return id;
@@ -48,11 +36,11 @@ public class OverflowPrediction {
         this.bin = bin;
     }
 
-    public Date getPredictedFullDate() {
+    public LocalDate getPredictedFullDate() {
         return predictedFullDate;
     }
 
-    public void setPredictedFullDate(Date predictedFullDate) {
+    public void setPredictedFullDate(LocalDate predictedFullDate) {
         this.predictedFullDate = predictedFullDate;
     }
 
@@ -70,13 +58,5 @@ public class OverflowPrediction {
 
     public void setModelUsed(UsagePatternModel modelUsed) {
         this.modelUsed = modelUsed;
-    }
-
-    public Timestamp getGeneratedAt() {
-        return generatedAt;
-    }
-
-    public void setGeneratedAt(Timestamp generatedAt) {
-        this.generatedAt = generatedAt;
     }
 }
