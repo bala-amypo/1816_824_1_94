@@ -10,14 +10,10 @@ import com.example.demo.service.FillLevelRecordService;
 import com.example.demo.util.WeekendUtil;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
-/*
- * File: FillLevelRecordServiceImpl.java
- * Package: com.example.demo.service.impl
- */
-@Service   // ⭐ THIS LINE FIXES THE ERROR
+@Service
 public class FillLevelRecordServiceImpl implements FillLevelRecordService {
 
     private final FillLevelRecordRepository recordRepository;
@@ -40,15 +36,12 @@ public class FillLevelRecordServiceImpl implements FillLevelRecordService {
             throw new BadRequestException("inactive bin");
         }
 
-        if (record.getFillPercentage() == null ||
-            record.getFillPercentage() < 0 ||
-            record.getFillPercentage() > 100) {
+        if (record.getFillPercentage() < 0 || record.getFillPercentage() > 100) {
             throw new BadRequestException("fillPercentage");
         }
 
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        if (record.getRecordedAt() == null ||
-            record.getRecordedAt().after(now)) {
+        // IMPORTANT: LocalDateTime validation
+        if (record.getRecordedAt().isAfter(LocalDateTime.now())) {
             throw new BadRequestException("future timestamp");
         }
 
@@ -76,6 +69,8 @@ public class FillLevelRecordServiceImpl implements FillLevelRecordService {
     @Override
     public List<FillLevelRecord> getRecentRecords(Long binId, int limit) {
         List<FillLevelRecord> records = getRecordsForBin(binId);
-        return limit >= records.size() ? records : records.subList(0, limit);
+        return limit >= records.size()
+                ? records
+                : records.subList(0, limit);
     }
 }

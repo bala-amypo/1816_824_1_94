@@ -11,15 +11,11 @@ import java.util.Optional;
 public interface FillLevelRecordRepository
         extends JpaRepository<FillLevelRecord, Long> {
 
-    
-    
     List<FillLevelRecord> findByBinOrderByRecordedAtDesc(Bin bin);
 
     Optional<FillLevelRecord> findTop1ByBinOrderByRecordedAtDesc(Bin bin);
 
-    /* =========================================================
-       REQUIRED BY TESTNG (LocalDateTime)
-       ========================================================= */
+    // REQUIRED BY TESTS
     List<FillLevelRecord> findByBinAndRecordedAtBetween(
             Bin bin,
             LocalDateTime start,

@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "usage_pattern_models")
@@ -16,17 +16,11 @@ public class UsagePatternModel {
 
     private Double avgDailyIncreaseWeekday;
     private Double avgDailyIncreaseWeekend;
-    private Timestamp lastUpdated;
+
+    // IMPORTANT: LocalDateTime
+    private LocalDateTime lastUpdated;
 
     public UsagePatternModel() {}
-
-    public UsagePatternModel(Bin bin, Double weekday,
-                             Double weekend, Timestamp lastUpdated) {
-        this.bin = bin;
-        this.avgDailyIncreaseWeekday = weekday;
-        this.avgDailyIncreaseWeekend = weekend;
-        this.lastUpdated = lastUpdated;
-    }
 
     public Long getId() {
         return id;
@@ -56,11 +50,11 @@ public class UsagePatternModel {
         this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend;
     }
 
-    public Timestamp getLastUpdated() {
+    public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(Timestamp lastUpdated) {
+    public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }
