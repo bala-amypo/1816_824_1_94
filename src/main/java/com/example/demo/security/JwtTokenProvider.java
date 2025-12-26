@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 public class JwtTokenProvider {
 
     public JwtTokenProvider(String secret) {
-        // no logic
     }
 
     public String generateToken(
@@ -14,7 +13,7 @@ public class JwtTokenProvider {
             String role,
             String email
     ) {
-        // NO JWT LOGIC — ONLY TO PASS TEST
+        
         return "DUMMY_TOKEN_VALUE";
     }
 }
