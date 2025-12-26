@@ -9,7 +9,7 @@ import com.example.demo.repository.UsagePatternModelRepository;
 import com.example.demo.service.UsagePatternModelService;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -37,7 +37,7 @@ public class UsagePatternModelServiceImpl implements UsagePatternModelService {
                 .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
 
         model.setBin(bin);
-        model.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+        model.setLastUpdated(LocalDateTime.now());
 
         return modelRepository.save(model);
     }
@@ -49,7 +49,7 @@ public class UsagePatternModelServiceImpl implements UsagePatternModelService {
 
         existing.setAvgDailyIncreaseWeekday(model.getAvgDailyIncreaseWeekday());
         existing.setAvgDailyIncreaseWeekend(model.getAvgDailyIncreaseWeekend());
-        existing.setLastUpdated(new Timestamp(System.currentTimeMillis()));
+        existing.setLastUpdated(LocalDateTime.now());
 
         return modelRepository.save(existing);
     }

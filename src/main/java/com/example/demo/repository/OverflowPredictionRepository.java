@@ -1,21 +1,62 @@
-package com.example.demo.repository;
+package com.example.demo.model;
 
-import com.example.demo.model.OverflowPrediction;
-import com.example.demo.model.Zone;
-import org.springframework.data.jpa.repository.*;
-import java.util.List;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
-public interface OverflowPredictionRepository
-        extends JpaRepository<OverflowPrediction, Long> {
+@Entity
+@Table(name = "overflow_predictions")
+public class OverflowPrediction {
 
-    @Query("""
-        SELECT p FROM OverflowPrediction p
-        WHERE p.bin.zone = :zone
-        AND p.generatedAt = (
-            SELECT MAX(p2.generatedAt)
-            FROM OverflowPrediction p2
-            WHERE p2.bin = p.bin
-        )
-    """)
-    List<OverflowPrediction> findLatestPredictionsForZone(Zone zone);
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Bin bin;
+
+    // IMPORTANT: LocalDate
+    private LocalDate predictedFullDate;
+
+    private Integer daysUntilFull;
+
+    @ManyToOne
+    private UsagePatternModel modelUsed;
+
+    public OverflowPrediction() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public Bin getBin() {
+        return bin;
+    }
+
+    public void setBin(Bin bin) {
+        this.bin = bin;
+    }
+
+    public LocalDate getPredictedFullDate() {
+        return predictedFullDate;
+    }
+
+    public void setPredictedFullDate(LocalDate predictedFullDate) {
+        this.predictedFullDate = predictedFullDate;
+    }
+
+    public Integer getDaysUntilFull() {
+        return daysUntilFull;
+    }
+
+    public void setDaysUntilFull(Integer daysUntilFull) {
+        this.daysUntilFull = daysUntilFull;
+    }
+
+    public UsagePatternModel getModelUsed() {
+        return modelUsed;
+    }
+
+    public void setModelUsed(UsagePatternModel modelUsed) {
+        this.modelUsed = modelUsed;
+    }
 }

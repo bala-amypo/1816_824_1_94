@@ -7,8 +7,9 @@ import com.example.demo.repository.*;
 import com.example.demo.service.OverflowPredictionService;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class OverflowPredictionServiceImpl implements OverflowPredictionService {
@@ -39,7 +40,7 @@ public class OverflowPredictionServiceImpl implements OverflowPredictionService 
         Bin bin = binRepository.findById(binId)
                 .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
 
-        FillLevelRecord latestRecord = recordRepository
+        FillLevelRecord record = recordRepository
                 .findTop1ByBinOrderByRecordedAtDesc(bin)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("No fill records"));
@@ -49,8 +50,8 @@ public class OverflowPredictionServiceImpl implements OverflowPredictionService 
                 .orElseThrow(() ->
                         new ResourceNotFoundException("No usage model"));
 
-        double remaining = 100 - latestRecord.getFillPercentage();
-        double dailyIncrease = latestRecord.getIsWeekend()
+        double remaining = 100 - record.getFillPercentage();
+        double dailyIncrease = record.getIsWeekend()
                 ? model.getAvgDailyIncreaseWeekend()
                 : model.getAvgDailyIncreaseWeekday();
 
@@ -59,17 +60,13 @@ public class OverflowPredictionServiceImpl implements OverflowPredictionService 
         }
 
         int daysUntilFull = (int) Math.ceil(remaining / dailyIncrease);
+        LocalDate predictedDate = LocalDate.now().plusDays(daysUntilFull);
 
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, daysUntilFull);
-
-        OverflowPrediction prediction = new OverflowPrediction(
-                bin,
-                cal.getTime(),
-                daysUntilFull,
-                model,
-                new Timestamp(System.currentTimeMillis())
-        );
+        OverflowPrediction prediction = new OverflowPrediction();
+        prediction.setBin(bin);
+        prediction.setModelUsed(model);
+        prediction.setDaysUntilFull(daysUntilFull);
+        prediction.setPredictedFullDate(predictedDate);
 
         return predictionRepository.save(prediction);
     }
@@ -100,3 +97,4 @@ public class OverflowPredictionServiceImpl implements OverflowPredictionService 
         return predictionRepository.findLatestPredictionsForZone(zone);
     }
 }
+
