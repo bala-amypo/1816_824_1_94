@@ -1,47 +1,40 @@
+/*
+ * File: FillLevelRecord.java
+ * Package: com.example.demo.model
+ * Purpose: Stores bin fill percentage readings
+ */
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
-public class FillLevelRecord
-{
+@Table(name = "fill_level_records")
+public class FillLevelRecord {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    private Bin bin;
+
     private Double fillPercentage;
+    private Timestamp recordedAt;
     private Boolean isWeekend;
-    public Long getid()
-    {
-        return id;
+
+    public FillLevelRecord() {}
+
+    public FillLevelRecord(Bin bin, Double fillPercentage,
+                           Timestamp recordedAt, Boolean isWeekend) {
+        this.bin = bin;
+        this.fillPercentage = fillPercentage;
+        this.recordedAt = recordedAt;
+        this.isWeekend = isWeekend;
     }
-    public void setid(Long id)
-    {
-        this.id=id;
-    }
-    public Double getfillPercentage()
-    {
-        return fillPercentage;
-    }
-    public void setfillPercentage(Double fillPercentage)
-    {
-        this.fillPercentage=fillPercentage;
-    }
-    public Boolean getisWeekend()
-    {
-        return isWeekend;
-    }
-    public void setisWeekend(Boolean isWeekend)
-    {
-        this.isWeekend=isWeekend;
-    }
-    public FillLevelRecord(Long id,Double fillPercentage,Boolean isWeekend)
-    {
-        this.id=id;
-        this.fillPercentage=fillPercentage;
-        this.isWeekend=isWeekend;
-    }
-    public FillLevelRecord(){}
+
+    public Long getId() { return id; }
+    public Bin getBin() { return bin; }
+    public Double getFillPercentage() { return fillPercentage; }
+    public Timestamp getRecordedAt() { return recordedAt; }
 }

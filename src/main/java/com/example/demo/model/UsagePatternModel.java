@@ -1,46 +1,33 @@
-import com.example.demo.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+package com.example.demo.model;
 
-public class UsagePatternModel
-{
+import jakarta.persistence.*;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = "usage_pattern_models")
+public class UsagePatternModel {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    private Bin bin;
+
     private Double avgDailyIncreaseWeekday;
     private Double avgDailyIncreaseWeekend;
-    public Long getid()
-    {
-        return id;
-    } 
-    public void setid(Long id)
-    {
-         this.id=id;
+    private Timestamp lastUpdated;
+
+    public UsagePatternModel() {}
+
+    public UsagePatternModel(Bin bin, Double weekday, Double weekend, Timestamp lastUpdated) {
+        this.bin = bin;
+        this.avgDailyIncreaseWeekday = weekday;
+        this.avgDailyIncreaseWeekend = weekend;
+        this.lastUpdated = lastUpdated;
     }
-    public Double getavgDailyIncreaseWeekday()
-    {
-        return avgDailyIncreaseWeekday;
-    }
-    public void setavgDailyIncreaseWeekday(Double avgDailyIncreaseWeekday)
-    {
-        this.avgDailyIncreaseWeekday=avgDailyIncreaseWeekday;
-    }
-     public Double getavgDailyIncreaseWeekend()
-    {
-        return avgDailyIncreaseWeekend;
-    }
-    public void setavgDailyIncreaseWeekend(Double avgDailyIncreaseWeekend)
-    {
-        this.avgDailyIncreaseWeekend=avgDailyIncreaseWeekend;
-    }
-    public UsagePatternModel(Long id,Double avgDailyIncreaseWeekday,Double avgDailyIncreaseWeekend)
-    {
-        this.id=id;
-        this.avgDailyIncreaseWeekday=avgDailyIncreaseWeekday;
-        this.avgDailyIncreaseWeekend=avgDailyIncreaseWeekend;
-    }
-    public UsagePatternModel(){}
+
+    public Bin getBin() { return bin; }
+    public Double getAvgDailyIncreaseWeekday() { return avgDailyIncreaseWeekday; }
+    public Double getAvgDailyIncreaseWeekend() { return avgDailyIncreaseWeekend; }
 }

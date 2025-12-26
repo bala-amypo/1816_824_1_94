@@ -1,14 +1,16 @@
+/*
+ * File: Zone.java
+ * Package: com.example.demo.model
+ * Purpose: Represents a city zone
+ */
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 @Entity
-public class Zone
-{
+@Table(name = "zones")
+public class Zone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,55 +21,17 @@ public class Zone
     private String description;
     private Boolean active;
 
-    public Zone()
-    {
-    }
+    public Zone() {}
 
-    public Zone(Long id, String zoneName, String description, Boolean active)
-    {
-        this.id = id;
+    public Zone(String zoneName, String description, Boolean active) {
         this.zoneName = zoneName;
         this.description = description;
         this.active = active;
     }
 
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    public String getZoneName()
-    {
-        return zoneName;
-    }
-
-    public void setZoneName(String zoneName)
-    {
-        this.zoneName = zoneName;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public Boolean getActive()
-    {
-        return active;
-    }
-
-    public void setActive(Boolean active)
-    {
-        this.active = active;
-    }
+    public Long getId() { return id; }
+    public String getZoneName() { return zoneName; }
+    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
