@@ -1,12 +1,9 @@
-/*
- * File: ZoneController.java
- * Package: com.example.demo.controller
- * Purpose: REST endpoints for Zone management
- */
 package com.example.demo.controller;
 
 import com.example.demo.model.Zone;
 import com.example.demo.service.ZoneService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,28 +18,38 @@ public class ZoneController {
         this.zoneService = zoneService;
     }
 
+    // Create Zone
     @PostMapping
-    public Zone createZone(@RequestBody Zone zone) {
-        return zoneService.createZone(zone);
+    public ResponseEntity<Zone> createZone(@RequestBody Zone zone) {
+        Zone created = zoneService.createZone(zone);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public Zone updateZone(@PathVariable Long id, @RequestBody Zone zone) {
-        return zoneService.updateZone(id, zone);
-    }
-
+    // Get Zone by ID
     @GetMapping("/{id}")
-    public Zone getZone(@PathVariable Long id) {
-        return zoneService.getZoneById(id);
+    public ResponseEntity<Zone> getZoneById(@PathVariable Long id) {
+        Zone zone = zoneService.getZoneById(id);
+        return ResponseEntity.ok(zone);
     }
 
+    // Get All Zones
     @GetMapping
-    public List<Zone> getAllZones() {
-        return zoneService.getAllZones();
+    public ResponseEntity<List<Zone>> getAllZones() {
+        return ResponseEntity.ok(zoneService.getAllZones());
     }
 
-    @PutMapping("/{id}/deactivate")
-    public void deactivateZone(@PathVariable Long id) {
+    // Update Zone
+    @PutMapping("/{id}")
+    public ResponseEntity<Zone> updateZone(
+            @PathVariable Long id,
+            @RequestBody Zone zone) {
+        return ResponseEntity.ok(zoneService.updateZone(id, zone));
+    }
+
+    // Deactivate Zone
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deactivateZone(@PathVariable Long id) {
         zoneService.deactivateZone(id);
+        return ResponseEntity.ok("Zone deactivated successfully");
     }
 }
