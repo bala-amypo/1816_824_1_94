@@ -1,17 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Zone;
-import java.util.List;
+import com.example.demo.model.User;
 
-public interface ZoneService {
+public interface UserService {
 
-    Zone createZone(Zone zone);
+    User registerUser(String fullName, String email, String password);
 
-    Zone updateZone(Long id, Zone zone);
+    User getByEmail(String email);
 
-    Zone getZoneById(Long id);
-
-    List<Zone> getAllZones();
-
-    void deactivateZone(Long id);
+    boolean exists(String email);
 }
