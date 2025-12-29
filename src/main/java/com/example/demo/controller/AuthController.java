@@ -1,70 +1,58 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import com.example.demo.security.CustomUserDetailsService;
 import com.example.demo.security.JwtTokenProvider;
-import com.example.demo.service.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final CustomUserDetailsService userDetailsService;
 
-    public AuthController(UserService userService,
-                          JwtTokenProvider jwtTokenProvider) {
-        this.userService = userService;
+    public AuthController(
+            JwtTokenProvider jwtTokenProvider,
+            CustomUserDetailsService userDetailsService
+    ) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userDetailsService = userDetailsService;
     }
 
-    // ================= REGISTER =================
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User request) {
-
-        if (userService.exists(request.getEmail())) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body("User already exists");
-        }
-
-        User user = userService.registerUser(
-                request.getName(),
-                request.getEmail(),
-                request.getPassword()
+    public CustomUserDetailsService.DemoUser register(@RequestBody User user) {
+        return userDetailsService.registerUser(
+                user.getName(),
+                user.getEmail(),
+                user.getPassword()
         );
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(user);
     }
 
-    // ================= LOGIN =================
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User request) {
+    public Map<String, String> login(@RequestBody User user) {
 
-        User user = userService.getByEmail(request.getEmail());
+        var demoUser = userDetailsService.getByEmail(user.getEmail());
 
-        if (user == null) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body("Invalid credentials");
-        }
+        Authentication auth =
+                new UsernamePasswordAuthenticationToken(
+                        demoUser.getEmail(),
+                        null,
+                        Collections.emptyList()
+                );
 
         String token = jwtTokenProvider.generateToken(
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
+                auth,
+                demoUser.getId(),
+                demoUser.getRole(),
+                demoUser.getEmail()
         );
 
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
-
-        return ResponseEntity.ok(response);
+        return Map.of("token", token);
     }
 }
