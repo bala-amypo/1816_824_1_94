@@ -1,56 +1,32 @@
 package com.example.demo.security;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.*;
+import org.springframework.stereotype.Service;
 
-public class CustomUserDetailsService {
+import java.util.List;
 
-    private final Map<String, DemoUser> users = new HashMap<>();
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
 
-    public CustomUserDetailsService() {
-        users.put("admin@city.com",
-                new DemoUser(1L, "Admin", "admin@city.com", "ADMIN"));
-    }
+    @Autowired
+    private UserRepository userRepository;
 
-    public DemoUser getByEmail(String email) {
-        DemoUser user = users.get(email);
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
-        return user;
-    }
+    @Override
+    public UserDetails loadUserByUsername(String email)
+            throws UsernameNotFoundException {
 
-    public DemoUser registerUser(String name, String email, String password) {
-        if (users.containsKey(email)) {
-            throw new RuntimeException("User already exists");
-        }
-        DemoUser user =
-                new DemoUser((long) (users.size() + 1), name, email, "USER");
-        users.put(email, user);
-        return user;
-    }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("User not found"));
 
-    public Object loadUserByUsername(String email) {
-        return getByEmail(email);
-    }
-
-    // used in tests
-    public static class DemoUser {
-        private Long id;
-        private String name;
-        private String email;
-        private String role;
-
-        public DemoUser(Long id, String name, String email, String role) {
-            this.id = id;
-            this.name = name;
-            this.email = email;
-            this.role = role;
-        }
-
-        public Long getId() { return id; }
-        public String getName() { return name; }
-        public String getEmail() { return email; }
-        public String getRole() { return role; }
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority(user.getRole()))
+        );
     }
 }
