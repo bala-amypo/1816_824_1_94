@@ -3,42 +3,72 @@ package com.example.demo.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
 
-    private final Key key;
-    private final long EXPIRATION = 24 * 60 * 60 * 1000; // 1 day
+    private final SecretKey key;
+    private static final long EXPIRATION = 86400000; // 1 day
 
-    public JwtTokenProvider() {
-        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    }
-
+    // ✅ REQUIRED BY TESTS
     public JwtTokenProvider(String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    // ===== REQUIRED SIGNATURE BY TESTS =====
-    public String generateToken(Authentication auth,
-                                Long userId,
-                                String role,
-                                String email) {
+    // ✅ DEFAULT CONSTRUCTOR FOR SPRING
+    public JwtTokenProvider() {
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    }
 
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + EXPIRATION);
-
+    // ✅ REQUIRED BY TESTS
+    public String generateToken(
+            UsernamePasswordAuthenticationToken authentication,
+            Long userId,
+            String email,
+            String role
+    ) {
         return Jwts.builder()
                 .setSubject(email)
                 .claim("userId", userId)
                 .claim("role", role)
-                .setIssuedAt(now)
-                .setExpiration(expiry)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(key)
                 .compact();
+    }
+
+    // ✅ USED BY CONTROLLER
+    public String generateToken(Long userId, String email, String role) {
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("userId", userId)
+                .claim("role", role)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
+                .signWith(key)
+                .compact();
+    }
+
+    public String getEmailFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
