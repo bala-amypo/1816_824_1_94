@@ -1,8 +1,3 @@
-/*
- * File: AuthResponse.java
- * Package: com.example.demo.dto
- * Purpose: Response returned after successful login or registration
- */
 package com.example.demo.dto;
 
 public class AuthResponse {

@@ -1,8 +1,3 @@
-/*
- * File: RegisterRequest.java
- * Package: com.example.demo.dto
- * Purpose: Request body for user registration
- */
 package com.example.demo.dto;
 
 public class RegisterRequest {
