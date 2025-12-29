@@ -23,9 +23,7 @@ public class BinServiceImpl implements BinService {
         this.zoneRepository = zoneRepository;
     }
 
-    // ---------------------------------------------------------
-    // CREATE BIN
-    // ---------------------------------------------------------
+  
     @Override
     public Bin createBin(Bin bin) {
 
@@ -44,15 +42,14 @@ public class BinServiceImpl implements BinService {
         Zone zone = zoneRepository.findById(bin.getZone().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Zone not found"));
 
-        // 🔴 REQUIRED BY TEST:
-        // testServlet_likeInactiveZoneRejectsBin
+        
         if (zone.getActive() == null || !zone.getActive()) {
             throw new BadRequestException("Zone is inactive");
         }
 
         bin.setZone(zone);
 
-        // default active = true
+        
         if (bin.getActive() == null) {
             bin.setActive(true);
         }
@@ -60,26 +57,20 @@ public class BinServiceImpl implements BinService {
         return binRepository.save(bin);
     }
 
-    // ---------------------------------------------------------
-    // GET BIN BY ID
-    // ---------------------------------------------------------
+   
     @Override
     public Bin getBinById(Long id) {
         return binRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
     }
 
-    // ---------------------------------------------------------
-    // GET ALL BINS
-    // ---------------------------------------------------------
+    
     @Override
     public List<Bin> getAllBins() {
         return binRepository.findAll();
     }
 
-    // ---------------------------------------------------------
-    // UPDATE BIN
-    // ---------------------------------------------------------
+    
     @Override
     public Bin updateBin(Long id, Bin update) {
 
@@ -121,9 +112,7 @@ public class BinServiceImpl implements BinService {
         return binRepository.save(existing);
     }
 
-    // ---------------------------------------------------------
-    // DEACTIVATE BIN
-    // ---------------------------------------------------------
+    
     @Override
     public void deactivateBin(Long id) {
         Bin bin = getBinById(id);
