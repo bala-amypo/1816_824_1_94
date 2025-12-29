@@ -1,8 +1,3 @@
-/*
- * File: UsagePatternModelController.java
- * Package: com.example.demo.controller
- * Purpose: REST endpoints for UsagePatternModel
- */
 package com.example.demo.controller;
 
 import com.example.demo.model.UsagePatternModel;

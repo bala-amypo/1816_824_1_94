@@ -1,8 +1,3 @@
-/*
- * File: BinController.java
- * Package: com.example.demo.controller
- * Purpose: REST endpoints for Bin management
- */
 package com.example.demo.controller;
 
 import com.example.demo.model.Bin;

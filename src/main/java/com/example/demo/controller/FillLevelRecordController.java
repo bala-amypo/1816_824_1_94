@@ -1,8 +1,3 @@
-/*
- * File: FillLevelRecordController.java
- * Package: com.example.demo.controller
- * Purpose: REST endpoints for FillLevelRecord
- */
 package com.example.demo.controller;
 
 import com.example.demo.model.FillLevelRecord;

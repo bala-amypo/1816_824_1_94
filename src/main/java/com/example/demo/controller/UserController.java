@@ -1,8 +1,4 @@
-/*
- * File: UserController.java
- * Package: com.example.demo.controller
- * Purpose: REST endpoints for User management (lookup & existence check)
- */
+
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
@@ -15,7 +11,7 @@ public class UserController {
 
     private final UserService userService;
 
-    // Constructor injection only (NO @Autowired)
+    
     public UserController(UserService userService) {
         this.userService = userService;
     }
