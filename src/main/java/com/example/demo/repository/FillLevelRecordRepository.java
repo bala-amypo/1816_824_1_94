@@ -15,7 +15,7 @@ public interface FillLevelRecordRepository
 
     Optional<FillLevelRecord> findTop1ByBinOrderByRecordedAtDesc(Bin bin);
 
-    // REQUIRED BY TESTS
+    
     List<FillLevelRecord> findByBinAndRecordedAtBetween(
             Bin bin,
             LocalDateTime start,

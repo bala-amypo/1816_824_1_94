@@ -17,7 +17,7 @@ public class JwtAuthenticationFilter implements Filter {
             FilterChain chain
     ) throws IOException, ServletException {
 
-        // NO JWT LOGIC — just pass request forward
+       
         chain.doFilter(request, response);
     }
 }
